@@ -17,7 +17,7 @@
 - gives the complete information of most disease in the region, country. so that the authorities can do the best to control it.
 - Hospital can see the frequency of diseases treated in their hospital, with the age of patient, so they can craft their helathcare system for the best possible care of their patient.
 - No paper required methodology.
-- Here four types of user can interact-
+- Here types of user that can interact-
   - Patient
   - Doctor
   - Hospital 
