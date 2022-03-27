@@ -2,7 +2,7 @@
 
 ## 💡 Inspiration
 
-- We inspired from the US Health Care System that how efficient it is and how to want to make it a bit more reliable in different perspective
+- We inspired from the US Health Care System, and how their patient and Doctors interact and give their services and we present you a system that helps to mrpove that system between Patient and Provider.
 - We have noticed a lack of interaction between the Patient with Provider(Doctor)
 - There are lots of fraudulen claims done by provider to the Payer(Insurance Company) to reduce the
 - We made this portal to give a smooth connection between the Patient <-> Provider <-> Payer
