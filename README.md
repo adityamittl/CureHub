@@ -38,7 +38,12 @@
 - Completing the project in 48 hours
 
 ## How we use MATLAB
-- We used matlab for iplementing the encryption-decryption, which is further connected by python by an API.
+- We used matlab for implementing the encryption-decryption, which is further connected by python by an API.
+
+## How we used Github
+- Github helped in managing the flow of this project, like creating issues which helpd us in tracking the progress. and the project feature of Github helped in the complete management and its automation
+- By opening the pull request, the whole team can test the new code without hampering the current enviornment and if the code was successfull, we can smoothly compare our code and merge it into the main branch.
+![image](https://user-images.githubusercontent.com/76921082/160286949-0b438f4d-f52e-428f-9347-de06c4c7984e.png)
 
 ## 🏅 Accomplishments that we're proud of
 - Creating and digital medical system.
