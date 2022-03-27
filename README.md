@@ -12,4 +12,4 @@
 
 ## 📖 What we learned
 
-## 🚀 What's next for TravelX
+## 🚀 What's next for CureHub
