@@ -1,0 +1,51 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+section{
+    width: 100vw;
+    height: 100vh;
+    background: url('/static/bg.jpg') no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.712);
+}
+
+.form{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 70vh;
+    width: 40vw;
+    background-color: rgba(10, 100, 236, 0.74);
+    border-radius: 20px;
+}
+label{
+    display: none;
+}
+input{
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    box-shadow: 0 0 10px white;
+}
+hr{
+    width: 60%;
+    box-shadow: 0 0 10px white;
+}
+
+button{
+    padding: 5px 15px 5px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+button:hover{
+    background-color: rgba(202, 131, 37, 0.952);
+    box-shadow: 0 0 5px rgb(255, 255, 255);
+}

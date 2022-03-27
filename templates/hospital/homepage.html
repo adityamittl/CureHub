@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Homepage</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            height: 150px;
+            background-color: rgba(56, 192, 67, 0.479);
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-weight: 100;
+        }
+
+        nav>p {
+            font-size: 14px;
+        }
+
+        nav>img {
+            position: absolute;
+            left: 0;
+            height: 145px;
+        }
+
+        .body {
+            height: 76vh;
+            background-color: rgb(255, 255, 255);
+            display: flex;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        #searchPatient {
+            width: 80%;
+            height: 50px;
+            border-radius: 30px;
+            border: none;
+            outline: 1px solid black;
+            padding-left: 20px;
+            font-size: 19px;
+            font-family: monospace;
+        }
+
+        .pDetail {
+            height: 100%;
+            width: 100%;
+            background-color: rgba(76, 0, 255, 0.274);
+            display: flex;
+        }
+
+        .ppic {
+            height: 100%;
+            width: 20vw;
+            display: grid;
+            justify-items: center;
+            align-items: center;
+        }
+
+        .ppic>img {
+            height: 120px;
+            width: 120px;
+            border: 1px solid yellow;
+            border-radius: 50%;
+        }
+
+        .details {
+            width: 30vw;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            justify-content: space-evenly;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        .details>p>strong {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            float: right;
+            color: rgb(4, 4, 75);
+            text-transform: capitalize;
+        }
+        .docdetail{
+            width: 50vw;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            flex-direction: column;
+        }
+        .docdetail>select{
+            width: 80%;
+            height: 30px;
+            text-align: center;
+            background-color: white;
+            border: none;
+            border-radius: 5px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            
+        }
+        .success{
+            position: absolute;
+            top: 0;
+            height: 100vh;
+            width: 100vw;
+            backdrop-filter: blur(20px);
+            z-index: 5;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        .success > div{
+            border-radius: 50%;
+            height: 400px;
+            width: 400px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .close{
+            height: 30px;
+            width: 30px;
+            background-color: rgba(0, 0, 255, 0.432);
+            border-radius: 50%;
+            position: absolute;
+            right: 10px;
+            margin-top: -300px;
+            box-shadow: 0 0 10px black;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        .close >hr:nth-child(1){
+            background-color: rgb(7, 16, 66);
+            width: 70%;
+            transform: rotateZ(45deg);
+        }
+        .close >hr:nth-child(2){
+            background-color: rgb(7, 16, 66);
+            width: 70%;
+            transform: rotateZ(135deg);
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="success">
+        <div>
+            <img src="https://c.tenor.com/xVfFIHxAzW4AAAAC/success.gif" alt="">
+        </div>
+    </div>
+    <nav>
+        <img src="https://media.istockphoto.com/vectors/caduceus-design-vector-id1181534622?k=20&m=1181534622&s=612x612&w=0&h=iV7IuM8JpdMJTaj_i85SNwTbE3vvkm2N8ZOAI-daREk="
+            alt="">
+        <h1>{{ data1.name }}</h1>
+        <p>{{data1.address}}</p>
+        <p>{{data1.city}} {{data1.state}}</p>
+        <p>{{ data1.country }}</p>
+    </nav>
+    <div class="body">
+        {%csrf_token%}
+        Search patient
+        <div style="display: flex; width: 100%; align-items: center; justify-content: center;">
+            <input type="search" name="" id="searchPatient">
+            <button onclick="search()" id="searchbtn" style="display: none;">Search</button>
+        </div>
+        <div class="close" onclick="closebox()">
+            <hr><hr>
+        </div>
+        <div class="pDetail" id="pDetail" style="display: none;"><div class="ppic"><img src="" alt=""></div><div class="details"><p class="name">Name: <strong></strong></p><p class="name">Age: <strong></strong></p><p class="name">Address: <strong></strong></p><p class="name">Email: <strong></strong></p><p class="name">Contact Number: <strong></strong></p></div><div class="docdetail"><select name="" id="selectspacility" onchange="selectedGenre()"></select></div></div></div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js"></script>
+    <script src="/static/js/hospital/main.js"></script>
+</body>
+
+</html>

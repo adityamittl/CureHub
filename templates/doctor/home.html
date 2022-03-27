@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <title>Document</title>
+    <style>*{
+        margin: 0;
+        padding: 0;
+    }
+        nav{
+            width: 100vw;
+            height: 50px;
+            background-color: #a9e6ee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        nav ul{
+            width: 90%;
+            list-style: none;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            cursor: pointer;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        .home{
+            width:100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .stats{
+            margin-top: 60px;
+            line-height: 40px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li>Active Patients</li>
+            <li>New Patients</li>
+            <li>Waiting Reports</li>
+            <li>Follow Up Patients</li>
+            <li>Inbox</li>
+            <li>Profile</li>
+            <li>Logout</li>
+        </ul>
+    </nav>
+    <div class="home" style="padding-top: 30px;">
+        <div class="charts" style="display: flex; align-items: center; justify-content: space-evenly; width: 90vw;">
+            <canvas id="myChart" style="width:100%;max-width:400px"></canvas>
+            <canvas id="ageChart" style="width:100%;max-width:300px"></canvas>
+        </div>
+        <div class="stats">
+            <h2>New Patients: <span style="font-weight: 300;">5</span></h2>
+            <h2>Active Patients: <span style="font-weight: 300;">5</span></h2>
+            <h2>Old Patients: <span style="font-weight: 300;">5</span></h2>
+        </div>
+
+        
+    </div>
+    <script>
+        var xValues = ["Stroke", "Sizure", "Joint Imbalance", "Twitchey Face", "Tumour",'cancer'];
+        var yValues = [55, 49, 44, 24, 15,20,22];
+        var barColors = ["red", "green","blue","orange","brown","yellow","pink"];
+        
+        new Chart("myChart", {
+          type: "bar",
+          data: {
+            labels: xValues,
+            datasets: [{
+              backgroundColor: barColors,
+              data: yValues
+            }]
+          },
+          options: {
+            legend: {display: false},
+            title: {
+              display: true,
+              text: "Patient's Frequent Disease Stats"
+            }
+          }
+        });
+
+
+        let xValues2 = ["18-25", "26-35", "36-45", "46-55", "56-65", "66-75", "76-85"];
+        let yValues2 = [55, 49, 44, 24, 15,20,22];
+        new Chart("ageChart", {
+  type: "pie",
+  data: {
+    labels: xValues2,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues2
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "Patient Age Stats"
+    }
+  }
+});
+</script>
+        </script>
+</body>
+</html>l

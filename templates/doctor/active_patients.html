@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Active Patients</title>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js"></script>
+    <style>
+        body {
+            background: linear-gradient(45deg, rgb(0, 0, 0), rgb(33, 33, 34));
+            height: 100vh;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            width: 100vw;
+            height: 50px;
+            background-color: #42C2FF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        nav ul {
+            width: 90%;
+            list-style: none;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            cursor: pointer;
+            text-shadow: 0 0 10px white;
+            font-weight: 500;
+            font-size: 17px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        .patientlist {
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            margin-top: 50px;
+        }
+
+        .card {
+            height: 180px;
+            width: 50%;
+            background-color: rgba(181, 223, 104, 0.774);
+            margin-top: 30px;
+            border-radius: 20px;
+            display: flex;
+        }
+
+        .picture {
+            height: 100%;
+            width: 30%;
+        }
+
+        .descx {
+            height: 100%;
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            border-left: 1px solid rgba(0, 0, 0, 0.658);
+            padding-left: 20px;
+        }
+
+        .descx>h2 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .descx>h2>span {
+            font-weight: 300;
+        }
+
+        .patient_queue {
+            height: 100%;
+            width: 17.5vw;
+            background-color: #B8FFF9;
+            padding-top: 20px;
+            padding-left: 20px;
+        }
+
+        .bodyWrap {
+            height: 92vh;
+            width: 100vw;
+            display: flex;
+        }
+
+        .patient {
+            display: flex;
+            color: rgb(21, 15, 68);
+            align-items: center;
+            justify-content: space-evenly;
+            width: 75%;
+            padding: 5px;
+            background-color: #61A4Bc;
+            margin: 5px;
+            margin-top: 8px;
+            border-radius: 10px;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-weight: 400;
+            font-size: 18px;
+            text-transform: capitalize;
+        }
+
+        .patient>img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+        }
+
+        .drophover:hover .dropdown {
+            animation-name: dropanime;
+            animation-duration: 0.5s;
+            animation-iteration-count: 1;
+            animation-timing-function: ease-in-out;
+            animation-fill-mode: forwards;
+
+        }
+
+        .dropdown {
+            height: 0px;
+            width: 100px;
+            background-color: #eff8ef;
+            position: absolute;
+            margin-left: -25px;
+            overflow: hidden;
+        }
+
+        @keyframes dropanime {
+            from {
+                height: 0px;
+            }
+
+            to {
+                height: 100px;
+            }
+        }
+
+        .writepad {
+            width: 80vw;
+            height: 100%;
+            background-color: rgb(194, 211, 226);
+        }
+
+        .patNav {
+            width: 100%;
+            height: 40px;
+            background-color: #85F4FF;
+        }
+
+        .patNav>ul {
+            list-style-type: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            height: 100%;
+        }
+
+        .active {
+            color: rgb(12, 16, 38);
+            font-weight: 600;
+            border-bottom: 1px solid black;
+            text-shadow: 0 0 5px white;
+        }
+
+        .Pdetails {
+            background-color: #EFFFFD;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .Pdetails>img {
+            height: 220px;
+            width: 220px;
+            border: 1px solid blue;
+            border-radius: 50%;
+        }
+
+        .pdwrap {
+            margin-top: -50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            height: 100px;
+        }
+
+        #pres>div>input {
+            width: 200px;
+            height: 20px;
+            margin-top: 5px;
+            border-radius: 5px;
+            margin-right: 5px;
+            padding: 5px;
+            border: none;
+            outline: 1px solid rgba(0, 0, 255, 0.5);
+        }
+        .patient >p{
+            height: 30px;
+            width: 30px;
+            background-color: rgba(240, 255, 255, 0.527);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgb(11, 11, 77);
+        }
+        #patNotes{
+            width: 90%;
+            height: 40%;
+            background-color: rgba(194, 211, 226);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            padding: 30px;
+            background-color: rgba(255, 255, 0, 0.541);
+        }
+        .hist{
+            width: 80%;
+            height: 100px;
+            background-color: rgba(0, 8, 255, 0.226);
+            backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-radius: 10px;
+        }
+        .hist>button{
+            background-color: rgb(40, 40, 201);
+            border: none;
+            border-radius: 10px;
+            padding: 10px;
+            color: white;
+        }
+        .hist>button:hover{
+            box-shadow: 0 0 10px blueviolet;
+        }
+        .btnwrap>button:nth-child(1){
+            background-color: rgb(40, 40, 201);
+            border: none;
+            border-radius: 10px;
+            padding: 10px;
+            color: white;
+        }
+        .btnwrap>button:nth-child(2){
+            background-color: rgb(120, 40, 201);
+            border: none;
+            border-radius: 10px;
+            padding: 10px;
+            width: 100px;
+            color: white;
+        }
+        #presHeader{
+            position: absolute;
+            top: 100px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+        #durr{
+            position: absolute;
+            top: 150px;
+            border-radius: 10px;
+            padding: 5px;
+            border: none;
+            outline: 1px solid rgba(255, 0, 0, 0.61);
+
+        }
+        .testType{
+            height: 50px;
+            width: 100px;
+            background-color: rgb(189, 188, 231);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            color: rgb(26, 3, 53);
+            cursor: pointer;
+            font-size: 18px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            margin-top: 5px;
+        }
+        .testType>input{
+            display: none;
+        }
+        #submitTest{
+            position: absolute;
+            right: 30px;
+            background-color: rgb(209, 144, 22);
+            border-radius: 5px;
+            padding: 5px;
+            color: rgb(26, 3, 53);
+            cursor: pointer;
+            font-size: 18px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            margin-top: 5px;
+            border: none;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li>Active Patients</li>
+            <li>Waiting Reports</li>
+            <li>Follow Up Patients</li>
+            <li>Inbox</li>
+            <li class="drophover"><img
+                    src="/static/css/user.png"
+                    height="40px" alt="">
+                <div class="dropdown">
+                    <!-- profile -->
+                    <ul
+                        style="position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-evenly; height: 100%;">
+                        <li>Profile</li>
+                        <li>Logout</li>
+                    </ul>
+                </div>
+            </li>
+            <li id="todaysCount"></li>
+            <!-- <li>Logout</li> -->
+        </ul>
+    </nav>
+    <div class="bodyWrap">
+        <div class="patient_queue">
+
+            {% csrf_token %}
+        </div>
+        <div class="writepad">
+            <div class="patNav">
+                <ul>
+                    <li class="active tab"  onclick="pHome(0)" style="cursor: pointer;">Patient Details</li>
+                    <li class="tab" onclick="pHome(1)" style="cursor: pointer;">Patient History</li>
+                    <li class="tab" onclick="pHome(2)" style="cursor: pointer;">Patient Prescription</li>
+                    <li class="tab" onclick="pHome(3)" style="cursor: pointer;">Patient Reports</li>
+                    <li class="tab" onclick="pHome(4)" style="cursor: pointer;">Patient Notes</li>
+                    <li class="tab" onclick="NextPatient()" style="cursor: pointer; background-color: rgb(200, 202, 228); border-radius: 10px; padding: 10px;">Next Patient</li>
+                </ul>
+            </div>
+            <div class="Pdetails" onclick="pHome(0)" id="phome"><img src=""alt=""><div class="pdwrap"><p>Name: <strong></strong></p><p>Age: <strong></strong></p><p>Sex: <strong></strong></p></div></div>
+            <div class="Pdetails" id="histdetail">
+
+            </div>
+            <div class="Pdetails" style="background-color: white; display: none; cursor: pointer;">
+                <h2 id="presHeader">
+                    Prescription For : Dr. Strange
+                </h2>
+                <input type="integer" placeholder="Duration of meds" min="0" id="durr">
+                <div id="pres" style="display: flex; flex-direction: column;">
+                    <div id="0"><input type="text" placeholder="Name of medicine"><input type="number" placeholder="Quantity" min="0"><input
+                            type="text" placeholder="How to take"></div>
+                </div>
+                <div class="btnwrap">
+                    <button onclick="addMore()">Add More</button>
+                    <button onclick="submit()">Submit</button>
+                </div>
+            </div>
+            <div class="Pdetails" style="overflow-y: scroll; justify-content: flex-start; margin-top: 30px;" id="reportNeeded">
+                <!-- <div class="testType" id="testwrap1" onclick="changestate(1)">
+                    <input type="checkbox" name="" id="test1">
+                    <h5>CBC</h5>
+                </div> -->
+                <button onclick="selectedTests()" id="submitTest">Submit</button>
+            </div>
+            <div class="Pdetails" style="align-items: center; justify-content: space-evenly;">
+                <h3>Doctor's Notes</h3>
+                <input type="text" placeholder="Name The Diagnosis" style="width: 60%;padding: 10px;" id="NameDiagnosis">
+               <textarea name="" id="patNotes" cols="50" rows="20" placeholder="Description"></textarea>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let Prescription = {};
+        let count = 1
+        let parent = document.getElementById('pres');
+        let patients;
+        let current_patient = {};
+        let init = false;
+        let patientCount = 0;
+        let tabslist = ['detail','history','prescription','reports','notes'];
+        let Data = {};
+        let tests = [];
+
+        const selectDiscription = () =>{
+            const name = document.getElementById('NameDiagnosis').value;
+        }
+
+        const changestate = (state) =>{
+                if(document.getElementById('test'+state).checked){
+                    document.getElementById('test'+state).checked = false;
+                    document.getElementById('testwrap'+state).style.backgroundColor = 'rgb(189, 188, 231)';
+                }else{
+                    document.getElementById('test'+state).checked = true;
+                    document.getElementById('testwrap'+state).style.backgroundColor = '#E83A14';
+                }
+            
+        }
+
+        const selectedTests = () =>{
+            let selected = [];
+            let x = document.getElementById('reportNeeded').childNodes;
+            for(let i=0;i<x.length;i++){
+                if(x[i].nodeName =='DIV'){
+                    if(x[i].childNodes[0].checked){
+                        selected.push(x[i].childNodes[0].name);
+                    }
+                }
+            }
+            // for(let i = 0; i < choosenTests.length; i++){
+            //     selected.push(choosenTests[i].id);
+            // }
+            console.log(selected);
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', '/submit_test');
+            xhr.setRequestHeader('', document.getElementsByName('csrfmiddlewaretoken')[0].value);
+            xhr.send(JSON.stringify({
+                'tests': selected,
+                'patient': current_patient['details']['assert']
+            }));
+            xhr.onload = () =>{
+                if(xhr.status == 200){
+                    console.log(xhr.responseText);
+                    alert('Tests Submitted');
+                }
+            }
+        }
+        const AppendTests = () =>{
+            // <div class="testType" id="testwrap1" onclick="changestate(1)">
+            //         <input type="checkbox" name="" id="test1">
+            //         <h5>CBC</h5>
+            //     </div>
+            console.log("Entered");
+            let test = document.getElementById('reportNeeded');
+            for(let i = 0; i < tests.length; i++){
+                let wrap = document.createElement('div');
+                wrap.className='testType';
+                wrap.setAttribute('onclick','changestate('+i+')');
+                wrap.setAttribute('id','testwrap'+i);
+                let check = document.createElement('input');
+                check.setAttribute('id','test'+i);
+                check.type = 'checkbox';
+                check.name = tests[i];
+                let label = document.createElement('h');
+                label.innerHTML = tests[i];
+                wrap.appendChild(check);
+                wrap.appendChild(label);
+                test.appendChild(wrap);
+            }
+        }
+
+        const initiateTreatment = (initial) =>{
+            if(initial){
+                let home = document.getElementById('phome').childNodes;
+                // console.log(home);
+                for(let i=0;i<home.length;i++){
+                    console.log("-",home[i]);
+                    if(home[i].nodeName == 'IMG'){
+                        // console.log("choosing image");
+                        home[i].src = current_patient['details'].image;
+                    }
+                    else{
+                        let inner = home[i].childNodes;
+                        // console.log("choosing p");
+                        inner[0].childNodes[1].innerHTML = current_patient['details'].name;
+                        inner[1].childNodes[1].innerHTML = current_patient['details'].age;
+                        inner[2].childNodes[1].innerHTML = current_patient['details'].sex
+                    }
+                }
+            }
+        }
+
+        function addMore() {
+            let division = document.createElement('div');
+            let input = document.createElement('input');
+            let des = document.createElement('input');
+            let num = document.createElement('input')
+            num.setAttribute('type', 'number');
+            num.setAttribute('min', '0');
+            num.setAttribute('placeholder', 'Quantity');
+            des.setAttribute('placeholder', 'How to take');
+            input.setAttribute('placeholder', 'Name of medicine');
+            division.appendChild(input);
+            division.appendChild(num);
+            division.appendChild(des);
+            division.setAttribute('id', count);
+            count++;
+            parent.appendChild(division);
+
+        }
+        function submit() {
+            for (let i = 0; i < count; i++) {
+                let input = document.getElementById(i).childNodes;
+                // console.log(input);
+                let name = input[0].value;
+                let decs = input[2].value;
+                let qty = input[1].value;
+                Prescription[i] = {
+                    "name": name,
+                    "qty": qty,
+                    "decs": decs
+                }
+            }
+            console.log(Prescription);
+            console.log(JSON.stringify(Prescription));
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", '/sendpres', true);
+            xhr.setRequestHeader('X-CSRFToken', document.getElementsByName('csrfmiddlewaretoken')[0].value);
+            xhr.send(JSON.stringify({ pres: JSON.stringify(Prescription) , assert: current_patient['details'].assert, duration: document.getElementById('durr').value }));
+            xhr.onreadystatechange = function () {
+                if (this.readyState != 4) return;
+
+                if (this.status == 200) {
+                    var data = JSON.parse(this.responseText);
+
+                   window.alert(data)
+                }
+            };
+        }
+        const fetchHistory = () =>{
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", '/gethistory', true);
+            xhr.setRequestHeader('X-CSRFToken', document.getElementsByName('csrfmiddlewaretoken')[0].value);
+            xhr.send(JSON.stringify({ assert: current_patient['details'].assert }));
+            xhr.onreadystatechange = function () {
+                if (this.readyState != 4) return;
+
+                if (this.status == 200) {
+                    var data = JSON.parse(this.responseText);
+                    // console.log(type(data));
+                    if(data == "No History Found"){
+                        document.getElementById('histdetail').innerHTML = "No History";
+                        return;
+                    }
+                    // JSON.parse(data)
+                    console.log(data,typeof data)
+                    let history = document.getElementById('histdetail');
+                    for(let i = 0; i < data.length; i++){
+                        let wrap = document.createElement('div');
+                        wrap.className = 'hist';
+                        let temp = document.createElement('div');
+                        let name = document.createElement('h4');
+                        name.innerHTML = data[i].name;
+                        console.log(data[i].name,data[i]['date']);
+                        let sec = document.createElement('p');
+                        let date = document.createElement('strong');
+                        date.innerHTML = "Date: ";
+                        let dateVal = document.createElement('span');
+                        dateVal.innerHTML = data[i].date;
+                        sec.appendChild(date);
+                        sec.appendChild(dateVal);
+                        let des = document.createElement('h5');
+                        des.innerHTML = "Doctor: " + data[i].doctor;
+                        let button = document.createElement('button');
+                        button.innerHTML = "Know More";
+                        button.setAttribute('onclick',"javascript:location.href='/history/"+data[i].km+"'");
+                        temp.appendChild(name);
+                        temp.appendChild(sec);
+                        temp.appendChild(des);
+                        wrap.appendChild(temp);
+                        wrap.appendChild(button);
+                        history.appendChild(wrap);
+                    }
+                }
+            };
+        }
+        const tabIterator = (tabid) =>{
+            console.log(tabid);
+            if(tabslist[tabid] == 'history')
+                fetchHistory();
+            else if(tabslist[tabid] == 'prescription')
+                document.getElementById('presHeader').innerHTML = current_patient['details']['name'] + "'s Prescription";
+            // else if(tabslist[tabid] == 'tests')
+            // else if(tabslist[tabid] == 'reports')
+                // AppendTests();
+            // if (tabslist[tabid] == 'reports')
+            //     fetchReport();
+        }
+
+        const pHome = (tabid) =>{
+            let a = document.getElementsByClassName('Pdetails');
+            for (let i=0;i<a.length;i++){
+                if(i == tabid){
+                    a[i].style.display = 'flex';
+                }
+                else{
+                    a[i].style.display = 'none';
+                }
+            }
+            let b = document.getElementsByClassName('tab');
+            for (let i=0;i<b.length;i++){
+                if(i == tabid){
+                    b[i].classList.add('active');
+                }
+                else{
+                    b[i].classList.remove('active');
+                }
+            }
+            tabIterator(tabid);
+        }
+        const appendtoqueue = (data,type = "External") => {
+            if(type == 'External' && init == true){
+                return;
+            }
+            console.log("------------------");
+            let p = document.getElementsByClassName('patient_queue')[0];
+            for(let i=0;i<Object.keys(data).length;i++){
+                let x = document.createElement('div');
+                x.setAttribute('onclick', 'getPatient("Patient'+patientCount+'")');
+                patientCount++;
+                x.setAttribute('class','patient');
+                x.style.cursor = 'pointer';
+                let y = document.createElement('img');
+                y.setAttribute('src',data[i].image);
+                x.innerHTML = data[i].name;
+                x.appendChild(y);
+                p.appendChild(x);
+                document.getElementById('todaysCount').innerHTML = patientCount;
+            }
+            current_patient['details'] = patients[0];
+            initiateTreatment(true);
+            init = true;
+                
+        }
+        const compareNew = (data) =>{
+            let prev = patients;
+            let newData = {}
+            for(let i = 0;i<Object.keys(data).length;i++){
+                if(prev[i].assert != data[i].assert){
+                    patients[i] = data[i];
+                    appendtoqueue(data[i],"internal");
+                }
+                else{
+                    // console.log('old',data[i]);
+                }
+            }
+
+        }
+        const patientlist = () =>{
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", '/currentPatientList', true);
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                if (this.readyState != 4) return;
+
+                if (this.status == 200) {
+                    var data = JSON.parse(this.responseText);
+                    console.log(data);
+                    localStorage.setItem('patients', JSON.stringify(data));
+                    patients = data;
+                    appendtoqueue(data);
+                    compareNew(data);
+                    // return data;
+                }
+            };
+        }
+
+        const fetchTests= () =>{
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", '/getTests', true);
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                if (this.readyState != 4) return;
+
+                if (this.status == 200) {
+                    var data = JSON.parse(this.responseText);
+                    console.log(Object.values(data));
+                    tests = Object.values(data);
+                    AppendTests();
+                }
+            };
+        }
+
+        const frequentFetch = () =>{
+            patientlist();
+            setInterval(patientlist,50000); // Calling new patient list after every 5 minutes
+        }
+        frequentFetch();
+        fetchTests();
+        
+    </script>
+</body>
+
+</html>

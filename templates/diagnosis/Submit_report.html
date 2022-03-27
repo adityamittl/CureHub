@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnosis</title>
+    <link rel="stylesheet" href="/static/css/diagnosis/style.css">
+
+    <style>
+        .upld>input[type="text"] {
+            width: 70%;
+            height: 30px;
+            padding: 10px;
+            border-radius: 20px;
+            border: none;
+            color: yellow;
+            background-color: rgba(39, 38, 41, 0.623);
+            outline: 1px solid rgba(255, 255, 255, 0.507);
+        }
+
+        textarea {
+            width: 70%;
+            border-radius: 10px;
+            background-color: rgba(39, 38, 41, 0.623);
+            color: yellow;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="landing" style="">
+        {% csrf_token %}
+        <!-- <form action="" method="post"> -->
+        <div>
+            <input type="number" name="patientID" class="submit" placeholder="Patient Identity Number">
+            <input type="submit" onclick="fetchDetail()" value="Submit">
+        </div>
+        <!-- </form> -->
+    </section>
+    <section class="detail landing" style="display: none;">
+        <div class="container" style="height: 80vh; width: 80vw; background-color: rgba(37, 35, 41, 0.562);">
+            <div class="datas"
+                style="height: 100%; width: 50%; background-color: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <h2
+                    style="color: white; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-weight: 600;">
+                    Select Test to upload</h2>
+                <select name="" id="tests"
+                    style="height: 50px; width: 90%; border-radius: 10px; padding-left: 20px; background-color: rgba(61, 53, 119, 0.651); color: white; margin-top: 30px;">
+                    <option value="">Select Test</option>
+                </select>
+                <button
+                    style="margin: 50px; padding:10px;border-radius: 10px; border: none; cursor: pointer;" onclick="SubmitReports()">Next</button>
+            </div>
+            <div class="Ppic"
+                style="height: 80%; width: 50%; background-color: transparent; display: flex; flex-direction: column; align-items: center; justify-content: space-evenly;">
+                <div class="picture" style="height: 200px; width: 200px; background-color: teal;" id="Ppicture"></div>
+                <p style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; color: white; font-size: 19px;"
+                    id="Pname">Adrian</p>
+                <p style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; color: yellowgreen; font-size: 15px;"
+                    id="Pstate">Jaipur(Rajasthan)</p>
+                <p style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; color: yellow; font-size: 15px;"
+                    id="Pdisease">Aeotic Aneurysm</p>
+                <p style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; color: yellow; font-size: 15px;"
+                    id="pDoctor">Dr. kamal Hasan</p>
+            </div>
+        </div>
+    </section>
+    <section class="upload landing" style="display: none;">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="text" name="pid" id="pid" style="display: none;">
+            <input type="text" name="Tname" id="tname" style="display: none;">
+            <div class="upld"
+                style="height: 80vh; width: 80vw; background-color: rgba(53, 51, 59, 0.527); flex-direction: column; align-items: center; justify-content: space-evenly;">
+                <p
+                id="Tname"
+                    style="font-size:19px; color:white; margin-top: 20px; margin-bottom: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
+                    ECG</p>
+                <textarea name="remark" id="" cols="30" rows="10" placeholder="Remark"></textarea>
+                <input type="text" placeholder="price" name="price">
+                <input type="file" name="Report" id="">
+                <button
+                    style="margin: 10px; padding:10px;border-radius: 10px; border: none; cursor: pointer;">Submit</button>
+            </div>
+        </form>
+    </section>
+    <script>
+        let pId;
+        let tname;
+        const fetchDetail = () => {
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', '/diagnosis/fetch');
+            xhr.setRequestHeader('X-CSRFToken', document.getElementsByName('csrfmiddlewaretoken')[0].value);
+            pId = document.getElementsByName('patientID')[0].value;
+            xhr.send(JSON.stringify({
+                'patientID': document.getElementsByName('patientID')[0].value
+            }));
+            xhr.onload = () => {
+                if (xhr.status == 200) {
+                    let data = JSON.parse(xhr.responseText);
+                    console.log(data);
+                    document.querySelector('.landing').style.display = 'none';
+                    document.querySelector('.detail').style.display = 'flex';
+                    // document.querySelector('.upload').style.display = 'block';
+                    let x = document.getElementById('tests');
+                    let test = data.tests;
+                    for (let i = 0; i < test.length; i++) {
+                        let y = document.createElement('option');
+                        y.style.fontSize = '18px';
+                        y.style.backgroundColor = 'rgb(255, 255, 255)';
+                        y.style.color = 'black';
+                        y.innerHTML = test[i];
+                        x.appendChild(y);
+                    }
+                    let a = document.getElementById('Ppicture');
+                    a.style.backgroundImage = 'url(' + data.image + ')';
+                    a.style.backgroundSize = 'cover';
+                    a.style.backgroundPosition = 'center';
+                    a.style.backgroundRepeat = 'no-repeat';
+                    a = document.getElementById('Pname');
+                    a.innerHTML = data.name;
+                    a = document.getElementById('Pstate');
+                    a.innerHTML = data.city + "(" + data.state + ")";
+                    a = document.getElementById('Pdisease');
+                    a.innerHTML = data.disease;
+                    a = document.getElementById('pDoctor');
+                    a.innerHTML = data.doctor;
+
+                }
+            }
+        }
+
+        const SubmitReports = () =>{
+            document.getElementsByClassName('detail')[0].style.display = 'none';
+            document.getElementsByClassName('upload')[0].style.display = 'flex';
+            tname = document.getElementsByTagName('select')[0].value;
+            document.getElementById('Tname').innerHTML = tname;
+            document.getElementById('pid').value = pId;
+            document.getElementById('tname').value = tname;
+        }
+    </script>
+</body>
+
+</html>
