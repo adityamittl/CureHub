@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Home</title>
+    <style>
+        :root{
+            --mainColor: #FFADF0;
+            --mainColorHover: #D67D3E;
+            --mainColorActive: #FFC0D3;
+            --mainColorText: #ffffff;
+            --mainColorTextHover: #ffffff;
+            --backColor: #398AB9;
+            --secondaryColor: #56c667;
+            --secondaryColorHover: #56c667;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        section{
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            background-color: var(--backColor);
+            align-items: center;
+        }
+        nav{
+            width: 25vw;
+            /* background-color: yellow; */
+            border-right: 1px solid rgba(3, 3, 55, 0.466);
+            height: 40vw;
+        }
+        nav>ul{
+            list-style-type: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        nav>ul>li:nth-child(1){
+            height: 120px;
+            width: 120px;
+            border-radius: 50%;
+            margin-top: -10px !important;
+            margin-bottom:20px !important;
+            background: url('https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500');
+            background-size: cover;
+        }
+        nav>ul>li:nth-child(1)>div{
+            height: 30px;
+            width: 30px;
+            border: 0.5px solid rgba(0, 0, 0, 0.842);
+            background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjlcvdMKEVpluT0RNlcaeUVWz8V2dp1LZnoA&usqp=CAU');
+            background-size: cover;
+            border-radius: 50%;
+            margin-top: 95px;
+            margin-left: 100px;
+        }
+        nav>ul>li:nth-child(1)>div:hover{
+            background-color: red;
+        }
+        nav>ul>hr{
+            width: 60%;
+            height: 1px;
+            border: none;
+            background-color: rgba(0, 0, 0, 0.527);
+            margin-bottom: 30px;
+            
+        }
+        nav>ul>li{
+            margin-top: 20px;
+            padding: 10px;
+            background-color: var(--mainColor);
+            width: 200px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        nav>ul>li:hover{
+            background-color: var(--mainColorHover);
+        }
+        data{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 75vw;
+            height: 100vh;
+            background-color: white;
+            overflow-y: scroll;
+        }
+        table{
+            /* border: 1px solid black; */
+            padding: 10px;
+            border-collapse: collapse;
+            /* border-radius: 20px; */
+        }
+        tr{
+            height: 30px;
+            border: none;
+
+        }
+        td{
+            border: 1px solid black;
+            width: 200px;
+            background-color: #91b2d1;
+            padding: 10px;
+        }
+        table:nth-child(2)>tr>td{
+            border: none;
+        }
+        #currentTreatment>h2{
+            position: absolute;
+            top: 0;
+            width: 100%;
+            left: 25vw;
+            z-index: 0;
+            padding-left: 25%;
+            padding-top: 30px;
+            height: 70px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            text-align: left;
+            background: linear-gradient(90deg, #f99d94, #ffecdc);
+        }
+        #PrevTreatment>h2{
+            position: absolute;
+            top: 0;
+            width: 100%;
+            left: 25vw;
+            z-index: 0;
+            padding-left: 25%;
+            padding-top: 30px;
+            height: 70px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            text-align: left;
+            background: linear-gradient(90deg, #f99d94, #ffecdc);
+        }
+        body{
+            overflow: hidden;
+        }
+        td>ul{
+            list-style: none;
+        }
+        td>ul>li{
+            margin-top: 10px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        #PrevTreatment{
+            margin-top: 600px;
+            margin-bottom: 100px;
+        }
+        #PrevTreatment>table{
+            margin-top: 60px;
+        }
+        overlay{
+            height: 100vh;
+            width: 100vw;
+            top: 0;
+            position: absolute;
+            background-color: rgba(3, 10, 31, 0.933);
+            z-index: 2;
+            display: none;
+        }
+        .close{
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            background-color: yellow;
+            float: right;
+            /* margin: 70px; */
+            cursor: pointer;
+            position: absolute;
+            top: 50px;
+            right: 50px;
+        }
+        .close:hover{
+            box-shadow: 0 0 10px rgba(255, 255, 0, 0.61);
+        }
+        button{
+            padding: 10px;
+            border-radius: 10px;
+            /* border: none; */
+            background-color: rgba(0, 0, 255, 0.664);
+            color: rgb(231, 231, 130);
+            outline: 1px solid rgb(5, 5, 46)
+        }
+        chat{
+            display: none;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top:0;
+            background-color: rgba(8, 14, 68, 0.9);
+            height: 100vh;
+            width: 100vw;
+            z-index: 2;
+        }
+        .chatbox{
+            height: 70vh;
+            width: 30vw;
+            background-color: white;
+        }
+        .chatbox>input{
+            border: none;
+            width:29vw;
+            height: 40px;
+            padding-left: 10px;
+            outline: none;
+            border-top: 1px solid black;
+            position: absolute;
+            top: 76vh;
+            left: 35vw;
+        }
+        .chatarea{
+            padding-top:20px;
+            height: 55vh;
+            overflow-y: scroll;
+            /* background-color: yellow; */
+            /* background-color: yellow; */
+        }
+        .sender{
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            float: right;
+            padding-right: 20px;
+            padding-left: 10px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 200px;
+            min-height: 40px;
+            background-color: rgba(0, 255, 13, 0.452);
+            border-bottom-left-radius: 10px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 10px;
+            margin-right: 5px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        .receiver{
+            margin-left: 5px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            float: left;
+            padding-left: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 200px;
+            min-height: 40px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            background-color: rgba(0, 17, 255, 0.452);
+            border-bottom-right-radius: 10px;
+            border-top-right-radius: 5px;
+            border-top-left-radius: 10px;
+
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <overlay>
+            <div class="close"></div>
+        </overlay>
+        <chat>
+            <div class="close" onclick="document.getElementsByTagName('chat')[0].style.display = 'none'"></div>
+            <div class="chatbox">
+                <div class="chatarea">
+                    <div class="sender">I got some some mouth ulcers after taking the meds</div>
+                    <div class="receiver">Okay. I'm changing some medicines in your pescription, take the new meds, and also i'm booking you your next followup checkup date, make sure you reach</div>
+                    <div class="sender">Sure. Thank You</div>
+                </div>
+                <input type="text" placeholder="Enter Text" id="sendText">
+                <button id="sendMsg" style="display: none;" onclick="sendMessage()"></button>
+            </div>
+        </chat>
+        <nav>
+            <ul>
+                <li>
+                    <div title="Edit Profile"></div>
+                </li>
+                <h2 style="margin-bottom: 10px;">Spider Man</h2>
+                
+                <p>Patna, Bihar</p>
+                <div style="margin-top: 20px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; margin-bottom: 20px;">
+                    <h3 style="color: rgb(12, 23, 85); margin-bottom: 10px;">Insurence</h3>
+                    <p>Policy Nummber: 3154358465468</p>
+                    <p>Policy Name: GEPSA</p>
+                </div>
+
+                <hr>
+
+                <li onclick="switchTabs(0)">Current Treatment</li>
+                <li onclick="switchTabs(1)">Previous Treatment</li>
+            </ul>
+        </nav>
+        <data>
+            <div id="currentTreatment">
+                <h2>Current Treatment Information</h2>
+                <table>
+                    <tr>
+                        <td>Treatment Name</td>
+                        <td>Sizure</td>
+                    </tr>
+                    <tr>
+                        <td>Doctor Name</td>
+                        <td>Dr. Strange</td>
+                    </tr>
+                    <tr>
+                        <td>Hospital: </td>
+                        <td>Apna Hospital</td>
+                    </tr>
+                    <tr>
+                        <td>Treatment Start Date: </td>
+                        <td>12-10-2022</td>
+                    </tr>
+                    <tr>
+                        <td>Medicines: </td>
+                        <td>
+                            <ul>
+                                <li>Azithromycin</li>
+                                <li>Luliconezole</li>
+                                <li>Sertaconezole</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><button onclick="document.getElementsByTagName('chat')[0].style.display='flex'">Contact Doctor</button></td>
+                        <td><button>View reports</button></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="PrevTreatment" style="display: none;">
+                <h2>Previous Treatment Information</h2>
+                <table>
+                    <tr>
+                        <td>Treatment Name</td>
+                        <td>Sizure</td>
+                    </tr>
+                    <tr>
+                        <td>Doctor Name</td>
+                        <td>Dr. Strange</td>
+                    </tr>
+                    <tr>
+                        <td>Hospital: </td>
+                        <td>Apna Hospital</td>
+                    </tr>
+                    <tr>
+                        <td>Treatment Start Date: </td>
+                        <td>12-10-2022</td>
+                    </tr>
+                    <tr>
+                        <td>Medicines: </td>
+                        <td>
+                            <ul>
+                                <li>Azithromycin</li>
+                                <li>Luliconezole</li>
+                                <li>Sertaconezole</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td>Treatment Name</td>
+                        <td>Sizure</td>
+                    </tr>
+                    <tr>
+                        <td>Doctor Name</td>
+                        <td>Dr. Strange</td>
+                    </tr>
+                    <tr>
+                        <td>Hospital: </td>
+                        <td>Apna Hospital</td>
+                    </tr>
+                    <tr>
+                        <td>Treatment Start Date: </td>
+                        <td>12-10-2022</td>
+                    </tr>
+                    <tr>
+                        <td>Medicines: </td>
+                        <td>
+                            <ul>
+                                <li>Azithromycin</li>
+                                <li>Luliconezole</li>
+                                <li>Sertaconezole</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td>Treatment Name</td>
+                        <td>Sizure</td>
+                    </tr>
+                    <tr>
+                        <td>Doctor Name</td>
+                        <td>Dr. Strange</td>
+                    </tr>
+                    <tr>
+                        <td>Hospital: </td>
+                        <td>Apna Hospital</td>
+                    </tr>
+                    <tr>
+                        <td>Treatment Start Date: </td>
+                        <td>12-10-2022</td>
+                    </tr>
+                    <tr>
+                        <td>Medicines: </td>
+                        <td>
+                            <ul>
+                                <li>Azithromycin</li>
+                                <li>Luliconezole</li>
+                                <li>Sertaconezole</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+        </data>
+    </section>
+    <script>
+        const switchTabs = (num) =>{
+            let x = document.getElementById('PrevTreatment');
+            let y = document.getElementById('currentTreatment');
+            if(num == 0){
+                x.style.display = 'none';
+                y.style.display = 'block';
+            }
+            else{
+                x.style.display = 'block';
+                y.style.display = 'none';
+            }
+        }
+
+        var input = document.getElementById("sendText");
+        input.addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("sendMsg").click();
+            }
+        })
+        const sendMessage = () =>{
+            msg = document.getElementById('sendText').value;
+            document.getElementById('sendText').value = '';
+            wrap = document.getElementsByClassName('chatarea')[0];
+            let x = document.createElement('div');
+            x.setAttribute('class','sender');
+            x.innerHTML = msg;
+            wrap.appendChild(x);
+            wrap.scrollTop = wrap.scrollHeight;
+        }
+    </script>
+</body>
+</html>

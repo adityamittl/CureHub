@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aditya Mittal</title>
+    <link rel="stylesheet" href="/static/css/citizen/home.css">
+</head>
+<body>
+    <nav></nav>
+    <section class="landing">
+        <div class="center">
+            <div class="avatar" style="background: url('/media/{{ profile.image }}'); background-size: cover;"></div>
+            <h1>{{ profile.First_name }} {{ profile.Last_name }}</h1>
+            <h2>{{ profile.City }}</h2>
+            <h3>{{ profile.State }} ({{ profile.Country }})</h3>
+        </div>
+    </section>
+    <section class="current">
+
+        <div class="data">
+            
+            
+            <h2 style="color: white;">Current Treatment</h2>
+                <div class="card">
+                    <div style="display: flex; align-items: center; justify-content: flex-start; gap: 2rem;">
+                        <h4 class="card-title">Treatment For: </h4>
+                        <h5 style="font-weight: 300;">xcbfchxgfbhg</h5>
+                    </div>
+                    <div style="display: flex; align-items: center; justify-content: flex-start; gap: 2rem;">
+                        <h4 class="card-title">Doctor: </h4>
+                        <h5 style="font-weight: 300;">zdgbxgzcbxb</h5>
+                    </div>
+                    <div style="display: flex; align-items: center; justify-content: flex-start; gap: 2rem;">
+                        <h4 class="card-title">Hospital: </h4>
+                        <h5 style="font-weight: 300;">zdgnbgfcb </h5>
+                    </div>
+                    <div style="display: flex; align-items: center; justify-content: flex-start; gap: 2rem;">
+                        <h4 class="card-title">Treatment Start Date: </h4>
+                        <h5 style="font-weight: 300;">xfgbgb </h5>
+                    </div>
+                    <div style="display: flex; align-items: stretch; justify-content: flex-start; gap: 2rem;">
+                        <h4 class="card-title">Disease Discription: </h4>
+                        <h5 style="font-weight: 300; max-width: 300px;">dzfzb </h5>
+                    </div>
+                    <div style="display: flex; align-items: stretch; justify-content: flex-start; gap: 2rem;">
+                        <h4 class="card-title">Meds: </h4>
+                        <h5 style="font-weight: 300; max-width: 300px;"><ul><li>Azithromycin 500mg BD</li><li>Paracetamol 650mg TDS</li></ul></h5>
+                    </div>
+                    <div style="display: flex; align-items: stretch; justify-content: flex-start; gap: 2rem;">
+                        <h4 class="card-title">ammount: </h4>
+                        <h5 style="font-weight: 300; max-width: 300px; display: flex; gap: 1rem; align-items: center;">zdff USD <div style="height: 10px; width: 10px; border-radius: 50%; background-color: yellow; cursor: pointer;" title="View Breakups" onclick="view_breakup()"></div></h5>
+                    </div>
+                    <div style="display: flex; align-items: stretch; justify-content: flex-start; gap: 2rem;">
+                        <button style="padding: 5px; background-color: rgb(6, 6, 92); color: Red; font-weight: 6000; border: none; border-radius: 10px; cursor: pointer; box-shadow: 0 0 5px white;">Contact Doctor</button>
+                        <button style="padding: 5px; background-color: rgb(25, 25, 49); color: rgb(235, 225, 225); font-weight: 6000; border: none; border-radius: 10px; cursor: pointer; box-shadow: 0 0 5px white;" onclick="ViewReports('{{ current.id }}')">View Reports</button>
+                        
+                    </div>
+                </div>
+        </div>
+        <div class="overlay1 overlay">
+            <div class="close" onclick="closeoverlay(1)"><hr><hr></div>
+            <table>
+                <tr>
+                    <td>Hospital Fees</td>
+                    <td>700</td>
+                </tr>
+                <tr>
+                    <td>Doctor Fees:</td>
+                    <td>500</td>
+                </tr>
+                <tr style="background-color: rgb(33, 136, 38);">
+                    <td>Total</td>
+                    <td id="totalamm"></td>
+                </tr>
+            </table>
+        </div>
+    </section>
+    <section class="prevs">
+        <div class="prevcards">
+            <table style="width: 90%; height: 90%;">
+                <tr>
+                    <td>Treatment :</td>
+                    <td>Sizures</td>
+                </tr>
+                <tr>
+                    <td>Doctor :</td>
+                    <td>Dr. Alma Matters</td>
+                </tr>
+                <tr>
+                    <td>Hospital :</td>
+                    <td>Manipal Hospitals Jaipur</td>
+                </tr>
+                <tr>
+                    <td>Duration :</td>
+                    <td>5 months</td>
+                </tr>
+                <tr>
+                    <td>Meds :</td>
+                    <td>
+                        <ul>
+                            <li>Clonazepam 0.5mg</li>
+                            <li>Chlorazepam 0.25mg</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Meds Duration :
+                    </td>
+                    <td>2 Months</td>
+                </tr>
+                <tr>
+                    <td>Next Follow up</td>
+                    <td>12-5-22</td>
+                </tr>
+                <tr>
+                    <td>
+
+                        <button>View Reports</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- <div class="prevcards"></div> -->
+    </section>
+
+    <script>
+        function view_breakup(){
+            document.querySelector(".overlay1").style.display = "flex";
+        }
+        function closeoverlay(i){
+            document.querySelector(".overlay"+i).style.display = "none";
+        }
+        function ViewReports(id){
+            window.location.href = "/reports/"+id;
+        }
+    </script>
+</body>
+</html>

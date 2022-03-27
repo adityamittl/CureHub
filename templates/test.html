@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+/* Load the library */
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" accept="image/*" capture name="imagess">
+    <input type="submit" value="submit">
+</form>
+/* Basic and simple one */
+<div id="qrcode"></div>
+<script type="text/javascript">
+    let y = {
+        "Name:": "David",
+        "Age": "28",
+        "Treatment": "Heart",
+        "Disease": "Cancer"
+    };
+    
+new QRCode(document.getElementById("qrcode"),{
+    text: JSON.stringify(y),
+    width: 128,
+    height: 128,
+    colorDark : "#5868bf",
+    colorLight : "#ffffff",
+    correctLevel : QRCode.CorrectLevel.H
+});
+// text:  `${JSON.stringify(y)}`,
+	// width: 128,
+	// height: 128,
+	// colorDark : "#5868bf",
+	// colorLight : "#ffffff",
+	// correctLevel : QRCode.CorrectLevel.H
+</script>
+
+/*With some options*/
+
+<!-- <div id="qrcode-2"></div> -->
+<script type="text/javascript">
+var qrcode = new QRCode(document.getElementById("qrcode-2"), {
+	text: "https://webisora.com",
+	width: 128,
+	height: 128,
+	colorDark : "#5868bf",
+	colorLight : "#ffffff",
+	correctLevel : QRCode.CorrectLevel.H
+});
+</script>
+</body>
+</html>

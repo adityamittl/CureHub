@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.13.216/pdf.min.js" integrity="sha512-IM60GPudO4jk+ZQm3UlJgKHhXQi5pNDM6mP+pLKL968YgkHMc7He3aGJOVHEZ9rJ4vAaEtJ8W6SKa7Qq4inzBA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>Expanded History</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color: rgb(206, 206, 248);
+        }
+        .name{
+            margin-top: 40px;
+            height: 150%;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        .name>h1{
+            
+            font-size: 50px;
+        }
+        .name>p{
+            color: rgb(37, 16, 7);
+            font-size: 17px;
+        }
+        .container{
+            width: 100vw;
+            display: flex;
+        }
+        .nav{
+            width: 20vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .nav>ul{
+            list-style: none;
+        }
+        .nav>ul>li{
+            margin-top: 30px;
+            padding: 5px;
+        }
+        .restofthings{
+            width: 80vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+        .detail>h2{
+            font-size: 30px;
+            color: rgb(95, 0, 0);
+        }
+        .detail{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            height: 100vh;
+        }
+        .diagnosis{
+            height: 100vh;
+            display: flex;
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="name">
+        <h1>John Doe</h1> 
+        <p>
+            {{data.Treating_hospital}}
+        </p>
+    </div>
+    <div class="container">
+        <div class="nav">
+            <ul>
+                <li>Details</li>
+                <li>Diagnisis Report</li>
+                <li>Prescription</li>
+            </ul>
+        </div>
+        <div class="restofthings">
+            <div class="detail">
+                <h2>{{data.name}}</h2>
+                <p>{{data.description}}</p>
+            </div>
+            <div class="diagnosis">
+                CT Scan
+            </div>
+            {% for i in meds %}
+            {{ i.name }}
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
