@@ -1,7 +1,7 @@
 # CureHub
 
 ## 💡 Inspiration
-
+- Many times, during the case of emergency, it is difficult for doctors to find previous diagnosis and diseases of a patient, and therefore it is difficult to prescribe a perfect treatment for a patient. Then we came up with a solution what if every medical related issues, diagnosis, prescription, indications are found in one place, it will be easier. 
 - We inspired from the US Health Care System, and how their patient and Doctors interact and give their services and we present you a system that helps to mrpove that system between Patient and Provider.
 - We have noticed a lack of interaction between the Patient with Provider(Doctor)
 - There are lots of fraudulen claims done by provider to the Payer(Insurance Company) to reduce the
